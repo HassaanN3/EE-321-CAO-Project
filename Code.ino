@@ -1,19 +1,19 @@
 const int echoPin = 2
 const int trigPin = 3
-const int led = 4;
+const int IR = 4;
 
 long duration;
 int distance;
 
 void setup() {
-  pinMode(led, OUTPUT);
   pinMode(trigPin, OUTPUT); //trigger pin sends output signal
   pinMode(echoPin, INPUT); //echo pin receives input signal
+  pinMode(IR, INPUT);  //Infrared sensor input
 }
 void loop() {
   digitalWrite(trigPin, LOW); //clear trigger pin from previous loop
   delayMicroseconds(5); //using Microseconds as the delay needs to be very very short - delay uses millisecond
-  digitalWrite(trigPin, HIGH); 
+  digitalWrite(trigPin, HIGH);
   delayMicroseconds(10);  //trigger pin high for 10 microsecond - sound wave sent
   digitalWrite(trigPin, LOW); //reset trigger pin
 
@@ -26,12 +26,11 @@ void loop() {
   Serial.print(distance);
   Serial.println(" cm");
   //printing distance in serial monitor
-
-  if(distance <= 20){
-    digitalWrite(led, HIGH);
+  Serial.println("Infrared: ");
+  if(digitalRead(IR)==LOW){
+    Serial.println("Detected");
   }
   else{
-    digitalWrite(led, LOW);
+     Serial.println("Not detected");
   }
-  //led turns on if distance is less than 20 cm
 }
