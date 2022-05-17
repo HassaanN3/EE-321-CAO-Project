@@ -1,11 +1,15 @@
 const int echoPin = 2
 const int trigPin = 3
 const int IR = 4;
+const int led_sonic = 5;
+const int led_infr = 6;
 
 long duration;
 int distance;
 
 void setup() {
+  pinMode(led_sonic, OUTPUT);
+  pinMode(led_infr, OUTPUT)
   pinMode(trigPin, OUTPUT); //trigger pin sends output signal
   pinMode(echoPin, INPUT); //echo pin receives input signal
   pinMode(IR, INPUT);  //Infrared sensor input
@@ -26,11 +30,23 @@ void loop() {
   Serial.print(distance);
   Serial.println(" cm");
   //printing distance in serial monitor
+
+ if(distance <= 20){
+    digitalWrite(led_sonic, HIGH);
+  }
+  else{
+    digitalWrite(led_sonic, LOW);
+  }
+  //led turns on if distance is less than 20 cm
   Serial.println("Infrared: ");
-  if(digitalRead(IR)==LOW){
+  
+  if(digitalRead(IR)==HIGH){
     Serial.println("Detected");
+    digitalWrite(led_infr, HIGH);
   }
   else{
      Serial.println("Not detected");
+      digitalWrite(led_infr, LOW);
   }
+  //if infrared sensor detects motion, led turns on
 }
