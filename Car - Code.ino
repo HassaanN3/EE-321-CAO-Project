@@ -1,10 +1,10 @@
-//Car + Final
+//Car + Final 2.0 (Beta)
 
 #define trigPin 12
 #define echoPin 13
 
-#define left_infr 32
-#define right_infr 14
+#define left_infr 14
+#define right_infr 32
 
 #define left_forward 27
 #define left_backward 26
@@ -14,10 +14,7 @@
 long duration;
 int distance;
 
-int calc_distance();
-
 void setup() {
-  Serial.begin(9600);
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
 
@@ -31,52 +28,45 @@ void setup() {
 }
 
 void loop() {
+
   distance = calc_distance();
-  Serial.println(distance);
-  Serial.println("Left: ");
-  Serial.println(digitalRead(left_infr));
-  Serial.println("Right: ");
-  Serial.println(digitalRead(right_infr));
-  if(distance <= 10){ //go straight - follow hand
+  
+  if(distance <= 15 && distance >= 5){  //go straight - follow hand
     digitalWrite(left_forward, HIGH);
     digitalWrite(right_forward, HIGH);
     digitalWrite(left_backward, LOW);
     digitalWrite(right_backward, LOW);
-    delay(200);
+    delay(250); //follows for 0.25 seconds and then reads signal again (loop runs again)
     Serial.println("Straight");
   }
-  /*else if(distance < 10){
+  else if(distance < 5){
     digitalWrite(left_forward, LOW);
     digitalWrite(right_forward, HIGH);
     digitalWrite(left_backward, HIGH);
     digitalWrite(right_backward, LOW);
-    delay(200); //reverse to stop momentem
+    delay(100); //reverse to stop momentem
     Serial.println("Stop");
-  }*/
+  }
   
   else if(digitalRead(left_infr) == HIGH && digitalRead(right_infr) == LOW){ //Turn Left
     digitalWrite(left_forward, LOW);
     digitalWrite(right_forward, HIGH);
     digitalWrite(left_backward, HIGH);
     digitalWrite(right_backward, LOW);
-    delay(200);
+    delay(250);
     Serial.println("Left");
   }
-  else if(digitalRead(right_infr) == HIGH && digitalRead(left_infr) == LOW){  //Turn Right
+  else if(digitalRead(right_infr)==HIGH && digitalRead(left_infr) == LOW){  //Turn Right
     digitalWrite(left_forward, HIGH);
     digitalWrite(right_forward, LOW);
     digitalWrite(left_backward, LOW);
     digitalWrite(right_backward, HIGH);
-    delay(200);
+    delay(250);
     Serial.println("Right");
   }
-
-  reset();
 }
 
 int calc_distance(){
-  long x;
-  long y;
   digitalWrite(trigPin, LOW); //clear trigger pin from previous loop
   delayMicroseconds(2); //using Microseconds as the delay needs to be very very short - delay uses millisecond
   digitalWrite(trigPin, HIGH);
@@ -88,13 +78,6 @@ int calc_distance(){
  
   distance = duration * 0.034 / 2; // Speed of sound wave divided by 2 (go and back)
   //distance contains distance in centimeter
-  Serial.println(distance);
-  return distance;
-}
 
-void reset(){
-  digitalWrite(left_forward, LOW);
-  digitalWrite(right_forward, LOW);
-  digitalWrite(left_backward, LOW);
-  digitalWrite(right_backward, LOW);
+  return distance;
 }
