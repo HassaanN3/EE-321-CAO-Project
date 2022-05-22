@@ -1,4 +1,4 @@
-//Car Beta
+//Car + Final (Hopefully)
 
 #define trigPin 12
 #define echoPin 13
@@ -37,7 +37,7 @@ void loop() {
   Serial.println(digitalRead(left_infr));
   Serial.println("Right: ");
   Serial.println(digitalRead(right_infr));
-  if(distance <= 10){ //go straight - follow hand
+  if(distance <= 20 && distance >= 10 && digitalRead(left_infr) == LOW && digitalRead(right_infr) == LOW){ //go straight - follow hand
     digitalWrite(left_forward, HIGH);
     digitalWrite(right_forward, HIGH);
     digitalWrite(left_backward, LOW);
@@ -45,14 +45,14 @@ void loop() {
     delay(200);
     Serial.println("Straight");
   }
-  /*else if(distance < 10){
+  else if(distance < 10){
     digitalWrite(left_forward, LOW);
     digitalWrite(right_forward, HIGH);
     digitalWrite(left_backward, HIGH);
     digitalWrite(right_backward, LOW);
     delay(200); //reverse to stop momentem
     Serial.println("Stop");
-  }*/
+  }
   
   else if(digitalRead(left_infr) == HIGH && digitalRead(right_infr) == LOW){ //Turn Left
     digitalWrite(left_forward, LOW);
@@ -93,7 +93,7 @@ int calc_distance(){
 }
 
 void reset(){
-   digitalWrite(left_forward, LOW);
+  digitalWrite(left_forward, LOW);
   digitalWrite(right_forward, LOW);
   digitalWrite(left_backward, LOW);
   digitalWrite(right_backward, LOW);
