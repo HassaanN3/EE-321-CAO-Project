@@ -10,3 +10,18 @@ There are three code files
 3. "Car - Code" contains the final code of the whole car model
 
 Each code contains its own commits
+
+Libraries Used
+1. ESPAsyncWebServer
+2. AsyncTCP
+
+Hardware Used
+1. ESP32 Devkit V1
+2. Car Chassis
+3. DC Motors
+4. L298N Motor Driver
+5. Car Chassis
+6. Ultrasonic Sensor HC-SR04
+7. IR Sensor
+8. Breadboard
+9. AA Cells
