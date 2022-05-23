@@ -1,4 +1,4 @@
-//Car + Final (Hopefully)
+//Car + Final
 
 #define trigPin 12
 #define echoPin 13
@@ -16,8 +16,6 @@ int distance;
 
 int left_signal;
 int right_signal;
-
-int calc_distance();
 
 void setup() {
   Serial.begin(9600);
@@ -43,10 +41,10 @@ void loop() {
   Serial.println(digitalRead(right_infr));
   
   if (distance < 10){
-    stop();
+    release();
   }
   
-  else if(distance <= 20 && distance >= 10 && left_signal == 1 && right_signal == 1){ //go straight - follow hand
+  else if(distance <= 30 && distance >= 10 && left_signal == 1 && right_signal == 1){ //go straight - follow hand
     straight();
   }
     
@@ -57,8 +55,7 @@ void loop() {
   else if(right_signal == 0 && left_signal == 1){  //Turn left
     left();
   }
-
-  reset();
+  reset(); 
 }
 
 int calc_distance(){
@@ -85,16 +82,16 @@ void straight(){
   digitalWrite(right_forward, HIGH);
   digitalWrite(left_backward, LOW);
   digitalWrite(right_backward, LOW);
-  delay(200);
+  delay(50);
   Serial.println("Straight");
 }
 
-void left(){
+void left(){        
   digitalWrite(left_forward, LOW);
   digitalWrite(right_forward, HIGH);
   digitalWrite(left_backward, HIGH);
   digitalWrite(right_backward, LOW);
-  delay(200);
+  delay(50);
   Serial.println("Left");
 }
 
@@ -103,16 +100,16 @@ void right(){
   digitalWrite(right_forward, LOW);
   digitalWrite(left_backward, LOW);
   digitalWrite(right_backward, HIGH);
-  delay(200);
+  delay(50);
   Serial.println("Right");
 }
 
-void stop(){
+void release(){
   digitalWrite(left_forward, LOW);
-  digitalWrite(right_forward, HIGH);
-  digitalWrite(left_backward, HIGH);
+  digitalWrite(right_forward, LOW);
+  digitalWrite(left_backward, LOW);
   digitalWrite(right_backward, LOW);
-  delay(200); //reverse to stop momentem
+  delay(50);
   Serial.println("Stop");
 }
 
@@ -120,5 +117,5 @@ void reset(){
   digitalWrite(left_forward, LOW);
   digitalWrite(right_forward, LOW);
   digitalWrite(left_backward, LOW);
-  digitalWrite(right_backward, LOW);
+  digitalWrite(right_backward, LOW);  
 }
