@@ -20,8 +20,7 @@ Hardware Used
 2. Car Chassis
 3. DC Motors
 4. L298N Motor Driver
-5. Car Chassis
-6. Ultrasonic Sensor HC-SR04
-7. IR Sensor
-8. Breadboard
-9. AA Cells
+5. Ultrasonic Sensor HC-SR04
+6. IR Sensor
+7. Breadboard
+8. AA Cells
