@@ -11,10 +11,6 @@ There are three code files
 
 Each code contains its own commits
 
-Libraries Used
-1. ESPAsyncWebServer
-2. AsyncTCP
-
 Hardware Used
 1. ESP32 Devkit V1
 2. Car Chassis
@@ -24,3 +20,9 @@ Hardware Used
 6. IR Sensor
 7. Breadboard
 8. AA Cells
+
+Libraries Used
+1. ESPAsyncWebServer
+2. AsyncTCP
+
+Asynchronous web server is also hosted on ESP32 to display the distance of object from car as well as the movement of the car.
